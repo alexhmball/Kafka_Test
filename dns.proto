@@ -1,0 +1,74 @@
+syntax = "proto3";
+import "main.proto";
+
+package app;
+option java_package = "protobuf";
+option java_outer_classname = "Dns";
+
+enum DnsMssgType {
+  DNS_MESSA_UNKNOWN = 0;
+  DNS_QUERY = 1;
+  DNS_RESPONSE = 2;
+}
+
+enum DnsRrType {
+  DNS_RR_UNKNOWN = 0;
+  DNS_RR_A = 1;
+  DNS_RR_AAAA = 2;
+  DNS_RR_MX = 3;
+  DNS_RR_NS = 4;
+  DNS_RR_PTR = 5;
+}
+
+enum DnsClass {
+  DNS_CLASS_UNKNOWN = 0;
+  DNS_CLASS_IN = 1;
+  DNS_CLASS_NONE = 2;
+  DNS_CLASS_ANY = 3;
+}
+message DnsQuery {
+  bytes name = 1;
+  DnsRrType type = 2;
+  DnsClass class = 3;
+}
+/*A record*/
+message DnsRrTypeAData {
+  bytes address = 1;
+}
+/*AAAA record*/
+message DnsRrTypeAAAAData {
+  bytes address = 1;
+}
+/*MX record*/
+message DnsRrTypeMxData {
+  uint32 preference = 1;
+  bytes mail_exchange = 2;
+}
+/*NS record*/
+message DnsRrTypeNsData {
+  bytes name_server = 1;
+}
+/*PTR record*/
+message DnsRrTypePtrData {
+  bytes domain_name = 1;
+}
+message DnsRr {
+  bytes name = 1;
+  DnsRrType type = 2;
+  DnsClass class = 3;
+  uint32 ttl = 4;
+  uint32 rdlength = 5;
+  oneof rr_data {
+    DnsRrTypeAData a_data = 6;
+    DnsRrTypeAAAAData aaaa_data = 7;
+    DnsRrTypeMxData mx_data = 8;
+    DnsRrTypeNsData ns_data = 9;
+    DnsRrTypePtrData ptr_data = 10;
+  }
+}
+message DNS {
+  Connection connection = 1;
+  DnsMssgType mssg_type = 2;
+  repeated DnsQuery questions = 3;
+  repeated DnsRr rrs = 4;
+}

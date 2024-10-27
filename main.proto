@@ -1,0 +1,23 @@
+syntax = "proto3";
+package app;
+option java_package = "protobuf";
+option java_outer_classname = "shared";
+
+enum Protocol {
+  OTHER = 0;
+  TCP = 6;
+  UDP = 17;
+}
+
+message IpPort {
+  bytes ip = 1;
+  uint32 port = 2;
+}
+
+message Connection {
+  IpPort src = 1;
+  IpPort dst = 2;
+  uint64 timest = 3;
+  repeated uint32 app_ids = 4;
+  Protocol protocol = 5;
+}
