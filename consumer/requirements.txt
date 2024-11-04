@@ -1,0 +1,2 @@
+confluent-kafka==2.6.0
+protobuf==3.20.*
