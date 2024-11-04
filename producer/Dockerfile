@@ -7,6 +7,7 @@ COPY . .
 RUN apt-get update && apt-get install -y \
     librdkafka-dev \
     libpcap-dev \
+    libprotoc-dev \
     protobuf-compiler \
     libprotobuf-dev \
     pkg-config \
