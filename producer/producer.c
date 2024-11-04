@@ -15,7 +15,7 @@
 #include <stdbool.h>
 
 #define BUFFER_SIZE 1024
-#define KAFKA_BROKER "localhost:9091"
+#define KAFKA_BROKER "kafka:9092"
 #define KAFKA_TOPIC "dns_packets"
 
 // Function to query A and AAAA records
